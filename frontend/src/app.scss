@@ -1,0 +1,13 @@
+@import './style/utils/variables';
+
+.generator-container {
+  width: 80%;
+  height: fit-content;
+  padding: 30px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: $dark-grayish-blue;
+  border-radius: 10px;
+  text-wrap: wrap;
+}
