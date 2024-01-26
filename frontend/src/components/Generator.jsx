@@ -4,6 +4,8 @@ import { FaDiceFive } from 'react-icons/fa6';
 import dividerMobileImg from './../assets/pattern-divider-mobile.svg';
 import dividerDesktopImg from './../assets/pattern-divider-desktop.svg';
 
+import './generator.scss';
+
 const Generator = () => {
   const [currentAdvice, setCurrentAdvice] = useState([
     {
@@ -18,7 +20,7 @@ const Generator = () => {
       {currentAdvice.map((advice) => {
         return (
           <>
-            <p className="advice__number">Advice # {advice.id}</p>
+            <p className="advice__number">Advice #{advice.id}</p>
             <p className="advice__content">&ldquo;{advice.content}&rdquo;</p>
             <picture class="advice__separator">
               <source
