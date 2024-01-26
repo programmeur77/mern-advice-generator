@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { FaDiceFive } from 'react-icons/fa6';
-
 import dividerDesktop from './assets/pattern-divider-desktop.svg';
 import dividerMobile from './assets/pattern-divider-mobile.svg';
+import iconDice from './assets/icon-dice.svg';
+
+import './App.scss';
 function App() {
   const [currentAdvice, setCurrentAdvice] = useState([
     {
@@ -29,7 +29,11 @@ function App() {
                 <img src={dividerDesktop} alt="Divider image for desktop" />
               </picture>
               <button className="advice__generate-advice-btn">
-                <FaDiceFive className="advice-generate-advice-icon" />
+                <img
+                  src={iconDice}
+                  alt="Dice icon"
+                  className="advice__generate-advice-icon"
+                />
               </button>
             </>
           );
