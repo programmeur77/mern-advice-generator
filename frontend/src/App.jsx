@@ -1,32 +1,42 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { FaDiceFive } from 'react-icons/fa6';
 
+import dividerDesktop from './assets/pattern-divider-desktop.svg';
+import dividerMobile from './assets/pattern-divider-mobile.svg';
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentAdvice, setCurrentAdvice] = useState([
+    {
+      id: 1,
+      content: "I'm sorry, but I don't know what to do with that.",
+      generatedAt: new Date().toLocaleString(),
+    },
+  ]);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="generator-container">
+        {currentAdvice.map((advice) => {
+          return (
+            <>
+              <p className="advice__number">Advice #{advice.id}</p>
+              <p className="advice__content">&ldquo;{advice.content}&rdquo;</p>
+              <picture className="advice__separator">
+                <source
+                  media="(max-width: 900px)"
+                  srcset={dividerMobile}
+                  alt="Divider image for mobile"
+                />
+                <img src={dividerDesktop} alt="Divider image for desktop" />
+              </picture>
+              <button className="advice__generate-advice-btn">
+                <FaDiceFive className="advice-generate-advice-icon" />
+              </button>
+            </>
+          );
+        })}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
