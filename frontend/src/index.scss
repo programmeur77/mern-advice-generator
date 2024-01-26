@@ -1,0 +1,17 @@
+@import './../src/style/utils/variables';
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  width: 100dvw;
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+  font-family: $font-family-manrope;
+  font-weight: $main-font-weight;
+  background-color: $dark-blue;
+}
