@@ -7,4 +7,6 @@ backend/node_modules
 
 # Backend files
 backend/.env
+backend/config/db.js
+backend/config/user.http
 
