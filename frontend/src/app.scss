@@ -1,0 +1,13 @@
+@import './style/utils/variables';
+
+.generator-container {
+  width: 70%;
+  padding: 30px;
+  background-color: $dark-grayish-blue;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  justify-self: center;
+  place-items: center;
+  border-radius: 10px;
+}
