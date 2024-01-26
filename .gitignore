@@ -5,8 +5,11 @@
 backend/package-lock.json
 backend/node_modules
 
-# Backend files
+# Backend files and folders
 backend/.env
 backend/config/db.js
 backend/config/user.http
+backend/.DS_Store
 
+# Root directories files and folders
+.DS_Store
