@@ -11,5 +11,8 @@ backend/config/db.js
 backend/config/user.http
 backend/.DS_Store
 
+# Frontend files and folders
+frontend/package-lock.json
+
 # Root directories files and folders
 .DS_Store
