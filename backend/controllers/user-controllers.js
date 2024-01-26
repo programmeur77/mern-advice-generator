@@ -25,3 +25,21 @@ export const createUser = async (req, res) => {
 
   res.status(201).json({ success: 'User created', status: 201 });
 };
+
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(404).json({ error: 'Invalid email or password', status: 404 });
+  }
+
+  const validPassword = await bcrypt.compare(password, user.password);
+
+  if (!validPassword) {
+    res.status(404).json({ error: 'Invalid email or password', status: 404 });
+  }
+
+  res.status(200).json({ user: user, token: 'TOKEN', status: 200 });
+};
