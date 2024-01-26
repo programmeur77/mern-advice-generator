@@ -7,11 +7,10 @@
 }
 
 body {
-  width: 100dvw;
   height: 100dvh;
+  background-color: $dark-blue;
   display: grid;
   place-items: center;
   font-family: $font-family-manrope;
-  font-weight: $main-font-weight;
-  background-color: $dark-blue;
+  color: $grayish-blue;
 }
