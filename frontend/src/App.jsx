@@ -1,5 +1,11 @@
+import Generator from './components/Generator';
+
 const App = () => {
-  return <h1>Hello World ! 👋</h1>;
+  return (
+    <div className="generator-container">
+      <Generator />
+    </div>
+  );
 };
 
 export default App;
