@@ -1,0 +1,13 @@
+@import './../style/utils/variables';
+
+.login {
+  &__form-title {
+    padding: 20px;
+    padding-bottom: 0;
+    text-transform: uppercase;
+    color: $neon-green;
+    letter-spacing: 0.3rem;
+    background-color: $dark-grayish-blue;
+    border-radius: 15px 15px 0 0;
+  }
+}
