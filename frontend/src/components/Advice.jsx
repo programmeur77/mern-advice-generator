@@ -24,15 +24,11 @@ const Advice = ({ advice, handleOnClick, isLoading }) => {
         />
         <img src={dividerDesktop} alt="Divider image for desktop" />
       </picture>
-      <button className="advice__generate-advice-btn" onClick={handleOnClick}>
+      <button className="advice__submit-btn" onClick={handleOnClick}>
         {isLoading ? (
           <img src={loader} alt="loader" />
         ) : (
-          <img
-            src={iconDice}
-            alt="Dice icon"
-            className="advice__generate-advice-icon"
-          />
+          <img src={iconDice} alt="Dice icon" className="advice__btn-icon" />
         )}
       </button>
     </>
