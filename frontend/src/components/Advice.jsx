@@ -3,6 +3,9 @@ import React from 'react';
 import dividerDesktop from './../assets/pattern-divider-desktop.svg';
 import dividerMobile from './../assets/pattern-divider-mobile.svg';
 import iconDice from './../assets/icon-dice.svg';
+import loader from './../assets/loader.svg';
+
+import './Advice.scss';
 
 const Advice = ({ advice, handleOnClick }) => {
   return (
