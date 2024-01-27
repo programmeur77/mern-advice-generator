@@ -3,12 +3,13 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Generator from './components/Generator';
-import Advice from './components/Advice';
+import Login from './components/Login';
 
 import './App.scss';
 function App() {
   const [currentAdvice, setCurrentAdvice] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState(null);
 
   const fetchAdvice = async () => {
     setIsLoading(true);
@@ -24,6 +25,10 @@ function App() {
   };
 
   useEffect(() => {
+    if (!localStorage.getItem('user')) {
+      setUser(null);
+    }
+
     if (!localStorage.getItem('advice')) {
       if (!fetchAdvice()) {
         throw new Error();
@@ -31,16 +36,29 @@ function App() {
     }
 
     setCurrentAdvice([JSON.parse(localStorage.getItem('advice'))]);
+    setUser(JSON.parse(localStorage.getItem('user')));
   }, []);
 
   return (
     <Router>
       <div className="generator-container">
-        <Generator
-          currentAdvice={currentAdvice}
-          fetchAdvice={fetchAdvice}
-          isLoading={isLoading}
-        />
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={
+              user !== null ? (
+                <Generator
+                  currentAdvice={currentAdvice}
+                  fetchAdvice={fetchAdvice}
+                  isLoading={isLoading}
+                />
+              ) : (
+                <Login />
+              )
+            }
+          />
+        </Routes>
       </div>
     </Router>
   );
