@@ -2,15 +2,18 @@
 
 * {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 body {
-  height: 100dvh;
   background-color: $dark-blue;
-  display: grid;
-  place-items: center;
+  color: $light-cyan;
   font-family: $font-family-manrope;
-  color: $grayish-blue;
+
+  & #root {
+    height: 100dvh;
+    display: grid;
+    place-items: center;
+  }
 }
