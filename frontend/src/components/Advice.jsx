@@ -7,11 +7,11 @@ import loader from './../assets/loader.svg';
 
 import './Advice.scss';
 
-const Advice = ({ advice, handleOnClick }) => {
+const Advice = ({ advice, handleOnClick, isLoading }) => {
   return (
     <>
       <p className="advice__number">Advice #{advice.id}</p>
-      <p className="advice__content" key={advice.id}>
+      <p className="advice__content">
         &ldquo;
         {advice.advice}
         &rdquo;
@@ -25,11 +25,15 @@ const Advice = ({ advice, handleOnClick }) => {
         <img src={dividerDesktop} alt="Divider image for desktop" />
       </picture>
       <button className="advice__generate-advice-btn" onClick={handleOnClick}>
-        <img
-          src={iconDice}
-          alt="Dice icon"
-          className="advice__generate-advice-icon"
-        />
+        {isLoading ? (
+          <img src={loader} alt="loader" />
+        ) : (
+          <img
+            src={iconDice}
+            alt="Dice icon"
+            className="advice__generate-advice-icon"
+          />
+        )}
       </button>
     </>
   );
