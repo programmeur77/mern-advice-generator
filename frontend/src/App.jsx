@@ -1,6 +1,8 @@
 import React from 'react';
-
 import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import Generator from './components/Generator';
 import Advice from './components/Advice';
 
 import './App.scss';
@@ -21,13 +23,6 @@ function App() {
     localStorage.setItem('advice', JSON.stringify(advice));
   };
 
-  const handleOnClick = (e) => {
-    e.preventDefault();
-    if (!fetchAdvice()) {
-      throw new Error();
-    }
-  };
-
   useEffect(() => {
     if (!localStorage.getItem('advice')) {
       if (!fetchAdvice()) {
@@ -39,19 +34,15 @@ function App() {
   }, []);
 
   return (
-    <div className="generator-container">
-      {currentAdvice &&
-        currentAdvice.map((advice) => {
-          return (
-            <Advice
-              advice={advice}
-              key={advice.id}
-              handleOnClick={handleOnClick}
-              isLoading={isLoading}
-            />
-          );
-        })}
-    </div>
+    <Router>
+      <div className="generator-container">
+        <Generator
+          currentAdvice={currentAdvice}
+          fetchAdvice={fetchAdvice}
+          isLoading={isLoading}
+        />
+      </div>
+    </Router>
   );
 }
 
