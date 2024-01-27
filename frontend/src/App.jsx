@@ -41,7 +41,6 @@ function App() {
 
   return (
     <Router>
-      <div className="generator-container">
         <Routes>
           <Route
             exact
@@ -58,8 +57,8 @@ function App() {
               )
             }
           />
+          <Route path="/login" element={<Login />} />
         </Routes>
-      </div>
     </Router>
   );
 }
