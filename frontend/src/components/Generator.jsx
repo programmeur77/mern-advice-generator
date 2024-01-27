@@ -13,17 +13,19 @@ const Generator = ({ currentAdvice, fetchAdvice, isLoading }) => {
 
   return (
     <>
-      {currentAdvice &&
-        currentAdvice.map((advice) => {
-          return (
-            <Advice
-              advice={advice}
-              key={advice.id}
-              handleOnClick={handleOnClick}
-              isLoading={isLoading}
-            />
-          );
-        })}
+      <div className="generator-container">
+        {currentAdvice &&
+          currentAdvice.map((advice) => {
+            return (
+              <Advice
+                advice={advice}
+                key={advice.id}
+                handleOnClick={handleOnClick}
+                isLoading={isLoading}
+              />
+            );
+          })}
+      </div>
     </>
   );
 };
