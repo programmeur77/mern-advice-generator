@@ -1,0 +1,54 @@
+@import './../style/utils/variables';
+@import './../style/utils/keyframes';
+@import './../style/utils/mixins';
+
+.advice {
+  &__number {
+    @include grid-column-justify;
+    color: $neon-green;
+    font-size: 0.65rem;
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+  }
+
+  &__content {
+    width: 80%;
+    @include grid-column-justify;
+    text-wrap: balance;
+    text-align: center;
+    font-size: 1.8rem;
+  }
+
+  &__separator {
+    @include grid-column-justify;
+    margin-bottom: 20px;
+  }
+
+  &__generate-advice {
+    &-btn {
+      width: fit-content;
+      background-color: $neon-green;
+      border: none;
+      padding: 15px;
+      border-radius: 100%;
+      position: absolute;
+      bottom: -30px;
+      right: 46%;
+
+      &:hover {
+        cursor: pointer;
+        background-color: lighten($neon-green, 10%);
+        box-shadow: 0 0 20px lighten($neon-green, 10%);
+
+        & > .advice__generate-advice-icon {
+          animation: rotateDice 0.3s linear;
+        }
+      }
+
+      // &-icon {
+      //   &:hover {
+      //     animation: rotateDice 0.3s linear;
+      //   }
+    }
+  }
+}
