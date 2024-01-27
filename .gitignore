@@ -16,3 +16,5 @@ frontend/package-lock.json
 
 # Root directories files and folders
 .DS_Store
+# Local Netlify folder
+.netlify
