@@ -34,7 +34,7 @@ const LoginForm = ({ setFormTitle, error, handleOnBlur, handleOnChange }) => {
           />
           <IoMdEye className="login-form__eye-icon" />
         </div>
-        {error ?? <p className="login-form__error">{error}</p>}
+        {error !== null ?? <p className="login-form__error">{error}</p>}
         <button className="login-form__submit-btn">
           <FiLogIn className="login-form__btn-icon" />
         </button>
@@ -48,12 +48,6 @@ const LoginForm = ({ setFormTitle, error, handleOnBlur, handleOnChange }) => {
           Forgotten password
         </Link>
 
-        <p className="login-form__no-account-text">
-          Don't have an account yet ?
-          <Link to="/register" className="login-form__register-link">
-            &nbsp;Register
-          </Link>
-        </p>
       </div>
     </>
   );
