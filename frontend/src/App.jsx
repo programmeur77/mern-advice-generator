@@ -14,6 +14,7 @@ import './App.scss';
 function App() {
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [currentAdvice, setCurrentAdvice] = useState(null);
 
   return (
     <Router>
@@ -22,7 +23,15 @@ function App() {
         <Route
           exact
           path="/advice"
-          element={<Generator user={user} userId={userId} />}
+          element={
+            <Generator
+              user={user}
+              setUser={setUser}
+              userId={userId}
+              currentAdvice={currentAdvice}
+              setCurrentAdvice={setCurrentAdvice}
+            />
+          }
         />
         <Route
           path="/login"
@@ -31,6 +40,7 @@ function App() {
               user={user}
               setUser={setUser}
               setUserId={setUserId}
+              setCurrentAdvice={setCurrentAdvice}
             />
           }
         />
