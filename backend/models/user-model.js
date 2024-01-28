@@ -5,8 +5,8 @@ const userModel = mongoose.Schema({
   password: { type: String, required: true },
   advice: {
     id: { type: String },
-    content: { type: String },
-    generatedAt: { type: String, default: new Date().toLocaleString() },
+    advice: { type: String },
+    generatedAt: { type: String },
   },
   createdAt: { type: String, default: new Date().toLocaleString() },
 });
