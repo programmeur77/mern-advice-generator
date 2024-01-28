@@ -63,7 +63,7 @@ function App() {
           }
         />
         <Route path="/login" element={<FormContainer />} />
-        <Route path="/signup" element={<FormContainer />} />
+        <Route path="/register" element={<FormContainer />} />
       </Routes>
     </Router>
   );
