@@ -7,7 +7,7 @@ import { FiLogIn } from 'react-icons/fi';
 
 import './LoginForm.scss';
 
-const LoginForm = ({ setFormTitle }) => {
+const LoginForm = ({ setFormTitle, error, handleOnBlur }) => {
   useEffect(() => {
     setFormTitle('Login');
   }, []);
@@ -19,6 +19,7 @@ const LoginForm = ({ setFormTitle }) => {
           name="email"
           className="login-form__email-input"
           placeholder="example@example.com"
+          onBlur={handleOnBlur}
           autoFocus
         />
         <div className="login-form__password-container">
@@ -27,6 +28,7 @@ const LoginForm = ({ setFormTitle }) => {
             name="password"
             className="login-form__password-input"
             placeholder="Password"
+            onBlur={handleOnBlur}
           />
           <IoMdEye className="login-form__eye-icon" />
         </div>
