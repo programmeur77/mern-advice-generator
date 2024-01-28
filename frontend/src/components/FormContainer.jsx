@@ -11,15 +11,32 @@ import './FormContainer.scss';
 const Login = () => {
   const [formTitle, setFormTitle] = useState('');
   const [error, setError] = useState(null);
+  const [emailValue, setEmailValue] = useState(null);
+  const [passwordValue, setPasswordValue] = useState(null);
   const location = useLocation();
+
+  const handleOnChange = (event) => {
+    switch (event.target.name) {
+      case 'email':
+        setEmailValue(event.target.value);
+        break;
+      case 'password':
+        setPasswordValue(event.target.value);
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleOnBlur = (event) => {
     switch (event.target.name) {
       case 'email':
-        console.log('email');
+        if (emailValue === null) setError('Please enter your email');
+        setError('');
         break;
       case 'password':
-        console.log('password');
+        if (passwordValue === null) setError('Please enter your password');
+        setError('');
         break;
       default:
         break;
@@ -34,6 +51,7 @@ const Login = () => {
           setFormTitle={setFormTitle}
           error={error}
           handleOnBlur={handleOnBlur}
+          handleOnChange={handleOnChange}
         />
       ) : (
         <SignupForm setFormTitle={setFormTitle} />
