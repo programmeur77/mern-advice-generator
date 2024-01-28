@@ -2,6 +2,7 @@
 
 .form-container {
   width: 30%;
+  height: fit-content;
   padding: 50px;
   background-color: $dark-grayish-blue;
   border-radius: 15px;
@@ -19,5 +20,20 @@
     letter-spacing: 0.3rem;
     background-color: $dark-grayish-blue;
     border-radius: 15px 15px 0 0;
+  }
+
+  &__link-section {
+    border: 1px solid red;
+    align-self: baseline;
+    font-size: 0.8rem;
+
+    .link-section {
+      &__link {
+        color: #fff;
+        &:visited {
+          color: #fff;
+        }
+      }
+    }
   }
 }
