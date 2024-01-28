@@ -1,9 +1,16 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Advice from './Advice';
 
 const Generator = ({ currentAdvice, fetchAdvice, isLoading }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (!user) navigate('/login');
+  }, []);
   const handleOnClick = (e) => {
     e.preventDefault();
     if (!fetchAdvice()) {
