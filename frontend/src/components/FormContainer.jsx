@@ -10,10 +10,26 @@ import './FormContainer.scss';
 
 const Login = () => {
   const [formTitle, setFormTitle] = useState('');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState([]);
   const [emailValue, setEmailValue] = useState(null);
   const [passwordValue, setPasswordValue] = useState(null);
+  const [passwordVisible, setPasswordVilsible] = useState(false);
+
   const location = useLocation();
+
+  const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+
+  const insertErrorMessage = (errorMessage) => {
+    if (errorMessage.length > 0) {
+      setError(error.push(errorMessage));
+    }
+    setError([errorMessage]);
+  };
+
+  const clearErrorMessage = (errorMessage) => {
+    const updatedErrorArray = error.filter((error) => error !== errorMessage);
+    setError(updatedErrorArray);
+  };
 
   const handleOnChange = (event) => {
     switch (event.target.name) {
@@ -31,16 +47,35 @@ const Login = () => {
   const handleOnBlur = (event) => {
     switch (event.target.name) {
       case 'email':
-        if (emailValue === null) setError('Please enter your email');
-        setError('');
+        if (emailValue !== null || emailValue !== '') {
+          clearErrorMessage('Email is required');
+
+          if (!emailPattern.test(emailValue)) {
+            insertErrorMessage('Invalid email');
+          } else {
+            clearErrorMessage('Invalid email');
+          }
+        } else {
+          insertErrorMessage('Email is required');
+        }
         break;
       case 'password':
-        if (passwordValue === null) setError('Please enter your password');
-        setError('');
+        if (passwordValue === null || passwordValue === '') {
+          insertErrorMessage('Password is required');
+        } else {
+          const newErrorArray = error.filter(
+            (error) => error !== 'Password is required'
+          );
+          setError(newErrorArray);
+        }
         break;
       default:
         break;
     }
+  };
+
+  const handlePasswordVisibility = () => {
+    setPasswordVilsible(!passwordVisible);
   };
 
   return (
@@ -51,8 +86,10 @@ const Login = () => {
           <LoginForm
             setFormTitle={setFormTitle}
             error={error}
+            passwordVisible={passwordVisible}
             handleOnBlur={handleOnBlur}
             handleOnChange={handleOnChange}
+            handlePasswordVisibility={handlePasswordVisibility}
           />
         ) : (
           <SignupForm setFormTitle={setFormTitle} />
