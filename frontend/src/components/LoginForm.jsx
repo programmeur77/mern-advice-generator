@@ -14,13 +14,14 @@ const LoginForm = ({
   handleOnBlur,
   handleOnChange,
   handlePasswordVisibility,
+  handleSubmit,
 }) => {
   useEffect(() => {
     setFormTitle('Login');
   }, []);
   return (
     <>
-      <form action="POST" className="login-form">
+      <form action="POST" className="login-form" onSubmit={handleSubmit}>
         <input
           type="text"
           name="email"
@@ -65,7 +66,7 @@ const LoginForm = ({
         {error.length > 0 ? (
           <div className="login-form__error">{error}</div>
         ) : null}
-        <button className="login-form__submit-btn">
+        <button className="login-form__submit-btn" onClick={handleSubmit}>
           <FiLogIn className="login-form__btn-icon" />
         </button>
       </form>
