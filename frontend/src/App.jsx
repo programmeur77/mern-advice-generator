@@ -11,56 +11,29 @@ import Generator from './components/Generator';
 import FormContainer from './components/FormContainer';
 
 import './App.scss';
-import ProtectedRoutes from './components/ProtectedRoutes';
 function App() {
-  const [currentAdvice, setCurrentAdvice] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
-
-  const fetchAdvice = async () => {
-    setIsLoading(true);
-    const response = await fetch('https://api.adviceslip.com/advice');
-    const data = await response.json();
-    setAdviceAndSave(data.slip);
-    setIsLoading(false);
-  };
-
-  const setAdviceAndSave = (advice) => {
-    setCurrentAdvice([advice]);
-    localStorage.setItem('advice', JSON.stringify(advice));
-  };
-
-  useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('user')));
-
-    console.log(user);
-
-    if (!localStorage.getItem('advice')) {
-      if (!fetchAdvice()) {
-        throw new Error();
-      }
-    }
-
-    setCurrentAdvice([JSON.parse(localStorage.getItem('advice'))]);
-    setUser(JSON.parse(localStorage.getItem('user')));
-  }, []);
+  const [userId, setUserId] = useState(null);
 
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route
           exact
-          path="/"
+          path="/advice"
+          element={<Generator user={user} userId={userId} />}
+        />
+        <Route
+          path="/login"
           element={
-            <Generator
-              currentAdvice={currentAdvice}
-              fetchAdvice={fetchAdvice}
-              isLoading={isLoading}
+            <FormContainer
               user={user}
+              setUser={setUser}
+              setUserId={setUserId}
             />
           }
         />
-        <Route path="/login" element={<FormContainer />} />
         <Route path="/register" element={<FormContainer />} />
       </Routes>
     </Router>
