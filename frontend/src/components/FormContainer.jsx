@@ -8,7 +8,7 @@ import SignupForm from './SignupForm';
 
 import './FormContainer.scss';
 
-const FormContainer = ({ user, setUser, setUserId }) => {
+const FormContainer = ({ user, setUser, setUserId, setCurrentAdvice }) => {
   const [formTitle, setFormTitle] = useState('');
   const [emailValue, setEmailValue] = useState(null);
   const [passwordValue, setPasswordValue] = useState(null);
@@ -75,9 +75,11 @@ const FormContainer = ({ user, setUser, setUserId }) => {
       .then((user) => {
         setUser(user);
         setUserId(user._id);
-        // if (user.advice !== undefined) {
-        //   localStorage.setItem('advice', JSON.stringify(data.user.advice));
-        // }
+        if (user.advice !== undefined) {
+          setCurrentAdvice([user.advice]);
+        } else {
+          console.log('No advice stored in DB');
+        }
         navigate('/advice');
       })
       .catch((error) => {
