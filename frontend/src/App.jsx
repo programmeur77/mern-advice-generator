@@ -11,6 +11,7 @@ import Generator from './components/Generator';
 import FormContainer from './components/FormContainer';
 
 import './App.scss';
+import ProtectedRoutes from './components/ProtectedRoutes';
 function App() {
   const [currentAdvice, setCurrentAdvice] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,9 +31,9 @@ function App() {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('user')) {
-      setUser(null);
-    }
+    setUser(JSON.parse(localStorage.getItem('user')));
+
+    console.log(user);
 
     if (!localStorage.getItem('advice')) {
       if (!fetchAdvice()) {
@@ -51,15 +52,12 @@ function App() {
           exact
           path="/"
           element={
-            user ? (
-              <Generator
-                currentAdvice={currentAdvice}
-                fetchAdvice={fetchAdvice}
-                isLoading={isLoading}
-              />
-            ) : (
-              <Navigate to="/login" />
-            )
+            <Generator
+              currentAdvice={currentAdvice}
+              fetchAdvice={fetchAdvice}
+              isLoading={isLoading}
+              user={user}
+            />
           }
         />
         <Route path="/login" element={<FormContainer />} />
