@@ -9,9 +9,7 @@ import './LoginForm.scss';
 
 const LoginForm = ({
   setFormTitle,
-  error,
   passwordVisible,
-  handleOnBlur,
   handleOnChange,
   handlePasswordVisibility,
   handleSubmit,
@@ -27,7 +25,6 @@ const LoginForm = ({
           name="email"
           className="login-form__email-input"
           placeholder="example@example.com"
-          onBlur={handleOnBlur}
           onChange={handleOnChange}
           autoFocus
         />
@@ -38,7 +35,6 @@ const LoginForm = ({
               name="password"
               className="login-form__password-input"
               placeholder="Password"
-              onBlur={handleOnBlur}
               onChange={handleOnChange}
             />
           ) : (
@@ -47,7 +43,6 @@ const LoginForm = ({
               name="password"
               className="login-form__password-input"
               placeholder="Password"
-              onBlur={handleOnBlur}
               onChange={handleOnChange}
             />
           )}
@@ -63,10 +58,8 @@ const LoginForm = ({
             />
           )}
         </div>
-        {error.length > 0 ? (
-          <div className="login-form__error">{error}</div>
-        ) : null}
-        <button className="login-form__submit-btn" onClick={handleSubmit}>
+
+        <button className="login-form__submit-btn" onSubmit={handleSubmit}>
           <FiLogIn className="login-form__btn-icon" />
         </button>
       </form>
