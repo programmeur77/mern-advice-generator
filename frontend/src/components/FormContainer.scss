@@ -1,0 +1,23 @@
+@import './../style/utils/variables';
+
+.form-container {
+  width: 30%;
+  padding: 50px;
+  background-color: $dark-grayish-blue;
+  border-radius: 15px;
+  position: relative;
+  display: grid;
+  align-content: center;
+
+  @media screen and (min-width: 360px) and (max-width: 700px) {
+    width: 90%;
+  }
+  &__form-title {
+    padding-bottom: 30px;
+    text-transform: uppercase;
+    color: $neon-green;
+    letter-spacing: 0.3rem;
+    background-color: $dark-grayish-blue;
+    border-radius: 15px 15px 0 0;
+  }
+}
