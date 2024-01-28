@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Generator from './components/Generator';
-import Login from './components/Login';
+import FormContainer from './components/FormContainer';
 
 import './App.scss';
 function App() {
@@ -41,24 +41,20 @@ function App() {
 
   return (
     <Router>
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              user !== null ? (
-                <Generator
-                  currentAdvice={currentAdvice}
-                  fetchAdvice={fetchAdvice}
-                  isLoading={isLoading}
-                />
-              ) : (
-                <Login />
-              )
-            }
-          />
-          <Route path="/login" element={<Login />} />
-        </Routes>
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            <Generator
+              currentAdvice={currentAdvice}
+              fetchAdvice={fetchAdvice}
+              isLoading={isLoading}
+            />
+          }
+        />
+        <Route path="/login" element={<FormContainer />} />
+      </Routes>
     </Router>
   );
 }
