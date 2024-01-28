@@ -6,14 +6,7 @@
   height: fit-content;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
-  padding: 10px;
-  place-self: center;
-  padding: 20px;
-  padding-bottom: 20px;
-  background-color: $dark-grayish-blue;
-  border-radius: 0 0 15px 15px;
-  position: relative;
+  gap: 1.5rem;
 
   &__email-input,
   &__password-input {
@@ -32,7 +25,7 @@
     }
 
     &--error {
-      border: 3px solid red;
+      border-bottom: 2px solid red;
     }
   }
 
@@ -62,7 +55,6 @@
   &__error {
     justify-self: center;
     color: red;
-    display: none;
   }
 
   @import './../style/components/submit-btn';
