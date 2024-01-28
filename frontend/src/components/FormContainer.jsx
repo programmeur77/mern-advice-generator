@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
@@ -16,14 +16,31 @@ const Login = () => {
   const [passwordVisible, setPasswordVilsible] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
 
-  const insertErrorMessage = (errorMessage) => {
-    if (errorMessage.length > 0) {
-      setError(error.push(errorMessage));
+  const postUserFetch = async (user) => {
+    const newUser = await fetch(
+      `http://localhost:3000/api/users/${
+        location.pathname === '/login' ? 'login' : 'create'
+      }`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: user,
+      }
+    );
+
+    if (!newUser.ok) {
+      console.log(newUser.status);
     }
-    setError([errorMessage]);
+
+    return newUser.json();
+  };
+
+  const insertErrorMessage = (errorMessage) => {
+    setError(error.push(errorMessage));
   };
 
   const clearErrorMessage = (errorMessage) => {
@@ -78,6 +95,24 @@ const Login = () => {
     setPasswordVilsible(!passwordVisible);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (error.length > 0) {
+      return;
+    }
+
+    const User = { email: emailValue, password: passwordValue };
+
+    postUserFetch(JSON.stringify(User))
+      .then((data) => {
+        localStorage.setItem('user', JSON.stringify(data.user));
+        if (data.user.advice !== undefined)
+          localStorage.setItem('advice', JSON.stringify(data.user.advice));
+        navigate('/');
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <>
       <div className="form-container">
@@ -90,6 +125,7 @@ const Login = () => {
             handleOnBlur={handleOnBlur}
             handleOnChange={handleOnChange}
             handlePasswordVisibility={handlePasswordVisibility}
+            handleSubmit={handleSubmit}
           />
         ) : (
           <SignupForm setFormTitle={setFormTitle} />
