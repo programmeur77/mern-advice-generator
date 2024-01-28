@@ -2,12 +2,19 @@ import React from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { IoMdEye } from 'react-icons/io';
+import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { FiLogIn } from 'react-icons/fi';
 
 import './LoginForm.scss';
 
-const LoginForm = ({ setFormTitle, error, handleOnBlur, handleOnChange }) => {
+const LoginForm = ({
+  setFormTitle,
+  error,
+  passwordVisible,
+  handleOnBlur,
+  handleOnChange,
+  handlePasswordVisibility,
+}) => {
   useEffect(() => {
     setFormTitle('Login');
   }, []);
@@ -24,17 +31,40 @@ const LoginForm = ({ setFormTitle, error, handleOnBlur, handleOnChange }) => {
           autoFocus
         />
         <div className="login-form__password-container">
-          <input
-            type="password"
-            name="password"
-            className="login-form__password-input"
-            placeholder="Password"
-            onBlur={handleOnBlur}
-            onChange={handleOnChange}
-          />
-          <IoMdEye className="login-form__eye-icon" />
+          {passwordVisible ? (
+            <input
+              type="text"
+              name="password"
+              className="login-form__password-input"
+              placeholder="Password"
+              onBlur={handleOnBlur}
+              onChange={handleOnChange}
+            />
+          ) : (
+            <input
+              type="password"
+              name="password"
+              className="login-form__password-input"
+              placeholder="Password"
+              onBlur={handleOnBlur}
+              onChange={handleOnChange}
+            />
+          )}
+          {passwordVisible ? (
+            <IoMdEyeOff
+              className="login-form__eye-icon"
+              onClick={handlePasswordVisibility}
+            />
+          ) : (
+            <IoMdEye
+              className="login-form__eye-icon"
+              onClick={handlePasswordVisibility}
+            />
+          )}
         </div>
-        {error !== null ?? <p className="login-form__error">{error}</p>}
+        {error.length > 0 ? (
+          <div className="login-form__error">{error}</div>
+        ) : null}
         <button className="login-form__submit-btn">
           <FiLogIn className="login-form__btn-icon" />
         </button>
@@ -47,7 +77,6 @@ const LoginForm = ({ setFormTitle, error, handleOnBlur, handleOnChange }) => {
         >
           Forgotten password
         </Link>
-
       </div>
     </>
   );
