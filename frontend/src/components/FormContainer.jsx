@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
@@ -44,19 +44,38 @@ const Login = () => {
   };
 
   return (
-    <div className="form-container">
-      <h1 className="form-container__form-title">{formTitle}</h1>
-      {location.pathname === '/login' ? (
-        <LoginForm
-          setFormTitle={setFormTitle}
-          error={error}
-          handleOnBlur={handleOnBlur}
-          handleOnChange={handleOnChange}
-        />
-      ) : (
-        <SignupForm setFormTitle={setFormTitle} />
-      )}
-    </div>
+    <>
+      <div className="form-container">
+        <h1 className="form-container__form-title">{formTitle}</h1>
+        {location.pathname === '/login' ? (
+          <LoginForm
+            setFormTitle={setFormTitle}
+            error={error}
+            handleOnBlur={handleOnBlur}
+            handleOnChange={handleOnChange}
+          />
+        ) : (
+          <SignupForm setFormTitle={setFormTitle} />
+        )}
+      </div>
+      <div className="form-container__link-section">
+        {location.pathname === '/login' ? (
+          <p className="link-section__text">
+            Don't have an account yet ?
+            <Link to="/register" className="link-section__link">
+              &nbsp;Register
+            </Link>
+          </p>
+        ) : (
+          <p className="link-section__text">
+            Already have an account ?
+            <Link to="/login" className="link-section__link">
+              &nbsp;Login
+            </Link>
+          </p>
+        )}
+      </div>
+    </>
   );
 };
 
