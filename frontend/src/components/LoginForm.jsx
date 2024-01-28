@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { IoMdEye } from 'react-icons/io';
@@ -6,7 +7,10 @@ import { FiLogIn } from 'react-icons/fi';
 
 import './LoginForm.scss';
 
-const LoginForm = () => {
+const LoginForm = ({ setFormTitle }) => {
+  useEffect(() => {
+    setFormTitle('Login');
+  }, []);
   return (
     <>
       <form action="POST" className="login-form">
