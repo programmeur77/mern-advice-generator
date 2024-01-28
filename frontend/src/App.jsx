@@ -1,6 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 
 import Generator from './components/Generator';
 import FormContainer from './components/FormContainer';
@@ -46,11 +51,15 @@ function App() {
           exact
           path="/"
           element={
-            <Generator
-              currentAdvice={currentAdvice}
-              fetchAdvice={fetchAdvice}
-              isLoading={isLoading}
-            />
+            user ? (
+              <Generator
+                currentAdvice={currentAdvice}
+                fetchAdvice={fetchAdvice}
+                isLoading={isLoading}
+              />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route path="/login" element={<FormContainer />} />
