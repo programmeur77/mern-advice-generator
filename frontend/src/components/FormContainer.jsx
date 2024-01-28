@@ -8,9 +8,8 @@ import SignupForm from './SignupForm';
 
 import './FormContainer.scss';
 
-const Login = () => {
+const FormContainer = ({ user, setUser, setUserId }) => {
   const [formTitle, setFormTitle] = useState('');
-  const [error, setError] = useState([]);
   const [emailValue, setEmailValue] = useState(null);
   const [passwordValue, setPasswordValue] = useState(null);
   const [passwordVisible, setPasswordVilsible] = useState(false);
@@ -20,32 +19,31 @@ const Login = () => {
 
   const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
 
+  useEffect(() => {
+    user !== null ? navigate('/advice') : null;
+  }, []);
+
   const postUserFetch = async (user) => {
-    const newUser = await fetch(
-      `http://localhost:3000/api/users/${
-        location.pathname === '/login' ? 'login' : 'create'
-      }`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: user,
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/users/${
+          location.pathname === '/login' ? 'login' : 'create'
+        }`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(user),
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        return data.user;
       }
-    );
-
-    if (!newUser.ok) {
-      console.log(newUser.status);
+    } catch (error) {
+      console.log(error);
     }
-
-    return newUser.json();
-  };
-
-  const insertErrorMessage = (errorMessage) => {
-    setError(error.push(errorMessage));
-  };
-
-  const clearErrorMessage = (errorMessage) => {
-    const updatedErrorArray = error.filter((error) => error !== errorMessage);
-    setError(updatedErrorArray);
   };
 
   const handleOnChange = (event) => {
@@ -61,56 +59,30 @@ const Login = () => {
     }
   };
 
-  const handleOnBlur = (event) => {
-    switch (event.target.name) {
-      case 'email':
-        if (emailValue !== null || emailValue !== '') {
-          clearErrorMessage('Email is required');
-
-          if (!emailPattern.test(emailValue)) {
-            insertErrorMessage('Invalid email');
-          } else {
-            clearErrorMessage('Invalid email');
-          }
-        } else {
-          insertErrorMessage('Email is required');
-        }
-        break;
-      case 'password':
-        if (passwordValue === null || passwordValue === '') {
-          insertErrorMessage('Password is required');
-        } else {
-          const newErrorArray = error.filter(
-            (error) => error !== 'Password is required'
-          );
-          setError(newErrorArray);
-        }
-        break;
-      default:
-        break;
-    }
-  };
-
   const handlePasswordVisibility = () => {
     setPasswordVilsible(!passwordVisible);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (error.length > 0) {
+    if (emailValue === null || passwordValue === null) {
       return;
     }
 
-    const User = { email: emailValue, password: passwordValue };
+    const newUser = { email: emailValue, password: passwordValue };
 
-    postUserFetch(JSON.stringify(User))
-      .then((data) => {
-        localStorage.setItem('user', JSON.stringify(data.user));
-        if (data.user.advice !== undefined)
-          localStorage.setItem('advice', JSON.stringify(data.user.advice));
-        navigate('/');
+    postUserFetch(newUser)
+      .then((user) => {
+        setUser(user);
+        setUserId(user._id);
+        // if (user.advice !== undefined) {
+        //   localStorage.setItem('advice', JSON.stringify(data.user.advice));
+        // }
+        navigate('/advice');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -120,11 +92,9 @@ const Login = () => {
         {location.pathname === '/login' ? (
           <LoginForm
             setFormTitle={setFormTitle}
-            error={error}
             passwordVisible={passwordVisible}
-            handleOnBlur={handleOnBlur}
-            handleOnChange={handleOnChange}
             handlePasswordVisibility={handlePasswordVisibility}
+            handleOnChange={handleOnChange}
             handleSubmit={handleSubmit}
           />
         ) : (
@@ -152,4 +122,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default FormContainer;
